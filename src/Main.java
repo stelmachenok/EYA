@@ -252,11 +252,6 @@ public class Main {
 
         if (voiceModeOn) {
             phoneticString = phoneticString
-//                .replaceAll("Я","йА")
-//                .replaceAll("Е", "йЭ")
-//                .replaceAll("Ю","йУ")
-//                .replaceAll("Ё", "йО")
-//                .replaceAll("йо", "йО")
                 .replaceAll("о", "а")
                 .replaceAll("е", "и");
         }
