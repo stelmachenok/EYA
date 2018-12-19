@@ -1,3 +1,4 @@
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.SequenceInputStream;
@@ -31,8 +32,94 @@ public class Main {
         phonemStringList = new ArrayList<>();
         Map<String, String> soundsMap = new HashMap<>();
         List<String> consolantList = new ArrayList<>();
+        List<String> unpairedHardConsolant = new ArrayList<>();
 
 
+
+
+
+
+
+        Map<String, String> voiceToDeafConsonants = new HashMap<>();
+        voiceToDeafConsonants.put("б", "п");
+        voiceToDeafConsonants.put("в", "ф");
+        voiceToDeafConsonants.put("г", "к");
+        voiceToDeafConsonants.put("д", "т");
+        voiceToDeafConsonants.put("ж", "ш");
+        voiceToDeafConsonants.put("з", "с");
+        voiceToDeafConsonants.put("б'", "п'");
+        voiceToDeafConsonants.put("в'", "ф'");
+        voiceToDeafConsonants.put("г'", "к'");
+        voiceToDeafConsonants.put("д'", "т'");
+        voiceToDeafConsonants.put("з'", "с'");
+
+        Map<String, String> deafToVoiceConsonants = new HashMap<>();
+        deafToVoiceConsonants.put("п", "б");
+        deafToVoiceConsonants.put("ф", "в");
+        deafToVoiceConsonants.put("к", "г");
+        deafToVoiceConsonants.put("т", "д");
+        deafToVoiceConsonants.put("ш", "ж");
+        deafToVoiceConsonants.put("с", "з");
+        deafToVoiceConsonants.put("п'", "б'");
+        deafToVoiceConsonants.put("ф'", "в'");
+        deafToVoiceConsonants.put("к'", "г'");
+        deafToVoiceConsonants.put("т'", "д'");
+        deafToVoiceConsonants.put("с'", "з'");
+
+
+        List<String> nonVoiceVowels = new ArrayList<>();
+        nonVoiceVowels.add("а");
+        nonVoiceVowels.add("о");
+        nonVoiceVowels.add("у");
+        nonVoiceVowels.add("э");
+        nonVoiceVowels.add("ы");
+        nonVoiceVowels.add("и");
+
+        List<String> voiceVowels = new ArrayList<>();
+        voiceVowels.add("А");
+        voiceVowels.add("О");
+        voiceVowels.add("У");
+        voiceVowels.add("Э");
+        voiceVowels.add("Ы");
+        voiceVowels.add("И");
+
+
+      List<String> vowels = new ArrayList<>();
+      vowels.add("а");
+      vowels.add("о");
+      vowels.add("у");
+      vowels.add("э");
+      vowels.add("ы");
+      vowels.add("и");
+      vowels.add("е");
+      vowels.add("ё");
+      vowels.add("ю");
+      vowels.add("я");
+      vowels.add("А");
+      vowels.add("О");
+      vowels.add("У");
+      vowels.add("Э");
+      vowels.add("Ы");
+      vowels.add("И");
+      vowels.add("Е");
+      vowels.add("Ё");
+      vowels.add("Ю");
+      vowels.add("Я");
+
+
+
+
+
+
+        
+
+
+
+        // смягчающиеся
+        consolantList.add("б");
+        consolantList.add("в");
+        consolantList.add("г");
+        consolantList.add("д");
         consolantList.add("л");
         consolantList.add("м");
         consolantList.add("н");
@@ -40,76 +127,29 @@ public class Main {
         consolantList.add("п");
         consolantList.add("к");
         consolantList.add("т");
-        consolantList.add("в");
         consolantList.add("з");
-        consolantList.add("ж");
-        consolantList.add("б");
-        consolantList.add("д");
-        consolantList.add("г");
         consolantList.add("ф");
         consolantList.add("с");
-        consolantList.add("ш");
         consolantList.add("щ");
         consolantList.add("х");
         consolantList.add("ч");
 
-        String wavFile1 = "src/sounds_max/wav1.wav"; // а
-        String wavFile2 = "src/sounds_max/wav2.wav"; // б
-        String wavFile3 = "src/sounds_max/wav3.wav"; // в
-        String wavFile4 = "src/sounds_max/wav4.wav"; // г
-        String wavFile5 = "src/sounds_max/wav5.wav"; // д
-        //String wavFile6 = "src/sounds_max/wav6.wav"; // е
-        String wavFile7 = "src/sounds_max/wav7.wav"; // ж
-        String wavFile8 = "src/sounds_max/wav8.wav"; // з
-        String wavFile9 = "src/sounds_max/wav9.wav"; // и
-        String wavFile10 = "src/sounds_max/wav10.wav"; // к
-        String wavFile11 = "src/sounds_max/wav11.wav"; // л
-        String wavFile12 = "src/sounds_max/wav12.wav"; // м
-        String wavFile13 = "src/sounds_max/wav13.wav"; // н
-        String wavFile14 = "src/sounds_max/wav14.wav"; // о
-        String wavFile15 = "src/sounds_max/wav15.wav"; // п
-        String wavFile16 = "src/sounds_max/wav16.wav"; // р
-        String wavFile17 = "src/sounds_max/wav17.wav"; // с
-        String wavFile18 = "src/sounds_max/wav18.wav"; // т
-        String wavFile19 = "src/sounds_max/wav19.wav"; // у
-        String wavFile20 = "src/sounds_max/wav20.wav"; // ф
-        String wavFile21 = "src/sounds_max/wav21.wav"; // х
-        String wavFile22 = "src/sounds_max/wav22.wav"; // ц
-        String wavFile23 = "src/sounds_max/wav23.wav"; // ч
-        String wavFile24 = "src/sounds_max/wav24.wav"; // щ
-        String wavFile25 = "src/sounds_max/wav25.wav"; // ш
-        String wavFile26 = "src/sounds_max/wav26.wav"; // э
-        //String wavFile27 = "src/sounds_max/wav27.wav"; // ю
-        //String wavFile28 = "src/sounds_max/wav28.wav"; // я
-        String wavFile29 = "src/sounds_max/wav29.wav"; // ы
-        String wavFile30 = "src/sounds_max/wav30.wav"; // "space"
-        String wavFile31 = "src/sounds_max/wav31.wav"; // с
-        String wavFile32 = "src/sounds_max/wav32.wav"; // т
-        String wavFile33 = "src/sounds_max/wav33.wav"; // у
-        String wavFile34 = "src/sounds_max/wav34.wav"; // ф
-        String wavFile35 = "src/sounds_max/wav35.wav"; // х
-        String wavFile36 = "src/sounds_max/wav36.wav"; // ц
-        String wavFile37 = "src/sounds_max/wav37.wav"; // ч
-        String wavFile38 = "src/sounds_max/wav38.wav"; // щ
-        String wavFile39 = "src/sounds_max/wav39.wav"; // ш
-        String wavFile40 = "src/sounds_max/wav40.wav"; // э
-        String wavFile41 = "src/sounds_max/wav41.wav"; // с
-        String wavFile42 = "src/sounds_max/wav42.wav"; // т
-        String wavFile43 = "src/sounds_max/wav43.wav"; // у
-        String wavFile44 = "src/sounds_max/wav44.wav"; // ф
-        String wavFile45 = "src/sounds_max/wav45.wav"; // х
-        String wavFile46 = "src/sounds_max/wav46.wav"; // ц
-        String wavFile47 = "src/sounds_max/wav47.wav"; // ч
-        String wavFile48 = "src/sounds_max/wav48.wav"; // щ
+        unpairedHardConsolant = new ArrayList<>();
+        unpairedHardConsolant.add("ж");
+        unpairedHardConsolant.add("ш");
+        unpairedHardConsolant.add("ц");
 
-
-
+        soundsMap.put("А", "src/sounds_max/а2.wav");
+        soundsMap.put("О", "src/sounds_max/о.wav");
+        soundsMap.put("У", "src/sounds_max/у.wav");
+        soundsMap.put("Э", "src/sounds_max/э.wav");
+        soundsMap.put("Ы", "src/sounds_max/ы.wav");
+        soundsMap.put("И", "src/sounds_max/и.wav");
         soundsMap.put("а", "src/sounds_max/а2.wav");
         soundsMap.put("б", "src/sounds_max/б.wav");
         soundsMap.put("в", "src/sounds_max/в.wav");
         soundsMap.put("г", "src/sounds_max/г.wav");
         soundsMap.put("д", "src/sounds_max/д.wav");
-        //soundsMap.put("е", wavFile6);
         soundsMap.put("ж", "src/sounds_max/ж.wav");
         soundsMap.put("з", "src/sounds_max/з.wav");
         soundsMap.put("и", "src/sounds_max/и.wav");
@@ -130,8 +170,6 @@ public class Main {
         soundsMap.put("щ", "src/sounds_max/щ.wav");
         soundsMap.put("ш", "src/sounds_max/ш.wav");
         soundsMap.put("э", "src/sounds_max/э.wav");
-        //soundsMap.put("ю", wavFile27);
-        //soundsMap.put("я", wavFile28);
         soundsMap.put("ы", "src/sounds_max/ы.wav");
         soundsMap.put(" ", "src/sounds_max/silence.wav");
         soundsMap.put("й", "src/sounds_max/й.wav");
@@ -153,20 +191,75 @@ public class Main {
         soundsMap.put("х'", "src/sounds_max/хь.wav");
         soundsMap.put("ч'", "src/sounds_max/ч.wav");
 
-        System.out.println("Введите текст:");
+
+        boolean voiceModeOn = false;
+        System.out.println("Хотите использовать режим с ударениями?");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
+        String answer = input.toLowerCase();
+        if (answer.contains("y") || answer.contains("д")){
+            voiceModeOn = true;
+        }
 
-        String phoneticString = input
-                .replaceAll("я","йа")
-                .replaceAll("е", "йэ")
-                .replaceAll("ю","йу")
-                .replaceAll("ё", "йо")
-                .replaceAll(",", " ");
-
-
+        System.out.println("Введите текст:");
+        input = scanner.nextLine();
 
 
+//        У менестрЕля двА путИ корпоратИв Или квартИрник
+//      вьЮга  молокО  объём  Яма  поёт  тЮк  лёд  пЯть  сЕмь  тянУть  дЕрево  жИть  шИть
+//      вьюга  молоко  объём  яма  поёт  тюк  лёд  пять  семь  тянуть  дерево  жить  шить
+//      Я солдАт недонОшенный ребЁнок войнЫ, Я солдАт, мАма залечИ моИ рАны
+
+
+//      Оо- моя оборона
+//      Солнечный зайчик стеклянного глаза
+//      Оо- моя оборона
+//      Траурный мячик нелепого мира
+//      Траурный мячик дешёвого мира
+
+      String phoneticString = input
+                .replaceAll("Б","б")
+                .replaceAll("В","в")
+                .replaceAll("Г","г")
+                .replaceAll("Д","д")
+                .replaceAll("Ж","ж")
+                .replaceAll("З","з")
+                .replaceAll("Й","й")
+                .replaceAll("К","к")
+                .replaceAll("Л","л")
+                .replaceAll("М","м")
+                .replaceAll("Н","н")
+                .replaceAll("П","п")
+                .replaceAll("Р","р")
+                .replaceAll("С","с")
+                .replaceAll("Т","т")
+                .replaceAll("Ф","ф")
+                .replaceAll("Х","х")
+                .replaceAll("Ц","ц")
+                .replaceAll("Ч","ч")
+                .replaceAll("Ш","ш")
+                .replaceAll("Щ","щ")
+                .replaceAll("Ъ","ъ")
+                .replaceAll("Ь","ь")
+//                .replaceAll("я","йа")
+//                .replaceAll("е", "йэ")
+//                .replaceAll("ю","йу")
+//                .replaceAll("ё", "йо")
+                .replaceAll(",", " ")
+                .replaceAll("-", " ")
+                .replaceAll(":", " ")
+                .replaceAll("\\.", "  ");
+
+        if (voiceModeOn) {
+            phoneticString = phoneticString
+//                .replaceAll("Я","йА")
+//                .replaceAll("Е", "йЭ")
+//                .replaceAll("Ю","йУ")
+//                .replaceAll("Ё", "йО")
+//                .replaceAll("йо", "йО")
+                .replaceAll("о", "а")
+                .replaceAll("е", "и");
+        }
 
         for (int i = 0; i < input.length(); i++) {
             lettersList.add(input.charAt(i));
@@ -182,24 +275,152 @@ public class Main {
             phonemStringList.add(aPhoneticList.toString());
         }
 
+      if (phonemStringList.get(0).equalsIgnoreCase("e")) {
+        phonemStringList.set(0, "э");
+        phonemStringList.add(0, "й");
+      }
+      if (phonemStringList.get(0).equalsIgnoreCase("ё")) {
+        phonemStringList.set(0, "о");
+        phonemStringList.add(0, "й");
+      }
+      if (phonemStringList.get(0).equalsIgnoreCase("ю")) {
+        phonemStringList.set(0, "у");
+        phonemStringList.add(0, "й");
+      }
+      if (phonemStringList.get(0).equalsIgnoreCase("я")) {
+        phonemStringList.set(0, "а");
+        phonemStringList.add(0, "й");
+      }
+
         for (int i = 1; i < phonemStringList.size(); i++) {
             String test = phonemStringList.get(i-1);
             String letter = phonemStringList.get(i);
-            if (letter.equals("й") && consolantList.indexOf(test)!= -1) {
+
+            if (letter.equalsIgnoreCase("e") && test.equals("ь") ) {
+              phonemStringList.set(i-1, "й");
+              phonemStringList.set(i, "э");
+            }
+            if (letter.equalsIgnoreCase("ё") && test.equals("ь") ) {
+              phonemStringList.set(i-1, "й");
+              phonemStringList.set(i, "о");
+            }
+            if (letter.equalsIgnoreCase("ю") && test.equals("ь") ) {
+              phonemStringList.set(i-1, "й");
+              phonemStringList.set(i, "у");
+            }
+            if (letter.equalsIgnoreCase("я") && test.equals("ь") ) {
+              phonemStringList.set(i-1, "й");
+              phonemStringList.set(i, "а");
+            }
+
+            if (letter.equalsIgnoreCase("е") && test.equals("ъ") ) {
+              phonemStringList.set(i-1, "й");
+              phonemStringList.set(i, "э");
+            }
+            if (letter.equalsIgnoreCase("ё") && test.equals("ъ") ) {
+              phonemStringList.set(i-1, "й");
+              phonemStringList.set(i, "о");
+            }
+            if (letter.equalsIgnoreCase("ю") && test.equals("ъ") ) {
+              phonemStringList.set(i-1, "й");
+              phonemStringList.set(i, "у");
+            }
+            if (letter.equalsIgnoreCase("я") && test.equals("ъ") ) {
+              phonemStringList.set(i-1, "й");
+              phonemStringList.set(i, "а");
+            }
+
+            if (letter.equalsIgnoreCase("e") && test.equals(" ") ) {
+              phonemStringList.set(i, "э");
+              phonemStringList.add(i, "й");
+            }
+            if (letter.equalsIgnoreCase("ё") && test.equals(" ") ) {
+              phonemStringList.set(i, "о");
+              phonemStringList.add(i, "й");
+            }
+            if (letter.equalsIgnoreCase("ю") && test.equals(" ") ) {
+              phonemStringList.set(i, "у");
+              phonemStringList.add(i, "й");
+            }
+            if (letter.equalsIgnoreCase("я") && test.equals(" ") ) {
+              phonemStringList.set(i, "а");
+              phonemStringList.add(i, "й");
+            }
+
+            if (letter.equalsIgnoreCase("e") && vowels.contains(test)) {
+              phonemStringList.set(i, "э");
+              phonemStringList.add(i, "й");
+            }
+            if (letter.equalsIgnoreCase("ё") && vowels.contains(test)) {
+              phonemStringList.set(i, "о");
+              phonemStringList.add(i, "й");
+            }
+            if (letter.equalsIgnoreCase("ю") && vowels.contains(test)) {
+              phonemStringList.set(i, "у");
+              phonemStringList.add(i, "й");
+            }
+            if (letter.equalsIgnoreCase("я") && vowels.contains(test)) {
+              phonemStringList.set(i, "а");
+              phonemStringList.add(i, "й");
+            }
+
+          if ( (letter.equals(" ") || i == phonemStringList.size() - 1) && voiceToDeafConsonants.containsKey(test)) {
+            phonemStringList.set(i - 1, voiceToDeafConsonants.get(test));
+          }
+          
+          if (letter.equals("й") && consolantList.indexOf(test)!= -1) {
                 phonemStringList.set(i-1, test + "'");
                 phonemStringList.remove(i);
             }
-            if (letter.equals("и") && consolantList.indexOf(test)!= -1) {
+            if (letter.equals("й") && unpairedHardConsolant.indexOf(test)!= -1) {
+                phonemStringList.remove(i);
+            }
+            if (letter.equalsIgnoreCase("и") && consolantList.indexOf(test)!= -1) {
                 phonemStringList.set(i-1, test + "'");
             }
-            if (letter.equals("й") && phonemStringList.get(i-1).equals("ъ")) {
+            if (letter.equalsIgnoreCase("и") && unpairedHardConsolant.indexOf(test)!= -1) {
+                phonemStringList.set(i, "ы");
+            }
+            if (letter.equals("й") && test.equals("ъ")) {
                 phonemStringList.remove(i-1);
             }
-            if (letter.equals("ь")) {
-                phonemStringList.set(i-1, test + "'");
-                phonemStringList.remove(i);
+            if (deafToVoiceConsonants.containsKey(letter) && voiceToDeafConsonants.containsKey(test)) {
+                phonemStringList.set(i - 1, voiceToDeafConsonants.get(test));
+            }
+            if (deafToVoiceConsonants.containsKey(letter) && test.equals(" ") &&
+                i-2 >= 0 && voiceToDeafConsonants.containsKey(phonemStringList.get(i-2))) {
+                phonemStringList.set(i - 1, voiceToDeafConsonants.get(test));
             }
         }
+
+      for (int i = 1; i < phonemStringList.size(); i++) {
+        String test = phonemStringList.get(i - 1);
+        String letter = phonemStringList.get(i);
+        if (letter.equals("ь") && consolantList.contains(test)) {
+          phonemStringList.set(i - 1, test + "'");
+          phonemStringList.remove(i);
+        }
+        if (letter.equals("ь") && unpairedHardConsolant.contains(test)) {
+          phonemStringList.remove(i);
+        }
+        if (letter.equalsIgnoreCase("е") && consolantList.contains(test)) {
+          phonemStringList.set(i - 1, test + "'");
+          phonemStringList.set(i, "э");
+        }
+        if (letter.equalsIgnoreCase("ё") && consolantList.contains(test)) {
+          phonemStringList.set(i - 1, test + "'");
+          phonemStringList.set(i, "о");
+        }
+        if (letter.equalsIgnoreCase("ю") && consolantList.contains(test)) {
+          phonemStringList.set(i - 1, test + "'");
+          phonemStringList.set(i, "у");
+        }
+        if (letter.equalsIgnoreCase("я") && consolantList.contains(test)) {
+          phonemStringList.set(i - 1, test + "'");
+          phonemStringList.set(i, "а");
+        }
+
+      }
 
         System.out.println("Транскрипция:\n"+phonemStringList);
 
